@@ -37,18 +37,26 @@ public class PlayerAdvancementListener implements Listener {
 		try {
 			net.minecraft.advancements.Advancement nmsAdvancement = (net.minecraft.advancements.Advancement) cachedMethodHandle.invoke(advancement);
 			AdvancementDisplay displayInfo = nmsAdvancement.c(); // DisplayInfo getDisplay()
-			IChatBaseComponent title = displayInfo.a(); // Component getTitle()
-			return title.getString();
+			// Disable "root" advancements, such as "Minecraft" and "Husbandry" and "Nether" etc.
+			if(displayInfo != null && nmsAdvancement.b() != null) { // Advancement getParent()
+				IChatBaseComponent title = displayInfo.a(); // Component getTitle()
+				return title.getString();	
+			} else {
+				return null;
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
-			return "";
+			return null;
 		}
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void advancementDone(PlayerAdvancementDoneEvent event) {
-		bot.sendMessageToChannel(event.getPlayer().getName() + " has made the advancement ["
-				+ getAdvancementTitle(event.getAdvancement()) + "]");
+		String advancementTitle = getAdvancementTitle(event.getAdvancement());
+		if(advancementTitle != null) {
+			bot.sendMessageToChannel(event.getPlayer().getName() + " has made the advancement ["
+					+ advancementTitle + "]");
+		}
 	}
 
 }

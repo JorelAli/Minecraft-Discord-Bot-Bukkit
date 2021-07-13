@@ -1,4 +1,14 @@
 # Minecraft-Discord-Bot-Bukkit
+
+## Changes in this fork
+
+- Support for Minecraft 1.17.1
+- Fixes issue where advancements didn't work for advancements made in datapacks
+
+_Original README.md below:_
+
+-----
+
 ![](https://img.shields.io/github/release/MineDisco/Minecraft-Discord-Bot-Bukkit.svg?style=flat-square)
 ![](https://img.shields.io/badge/Minecraft-1.16.2-blue.svg?style=flat-square)
 
